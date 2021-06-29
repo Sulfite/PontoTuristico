@@ -31,9 +31,9 @@ namespace ApiPontosTuristicos.Data
                          ReferenciaPontoTuristico = "",
                          CidadePontoTuristico = "Rio de Janeiro",
                          UfPontoTuristico = "Rio de Janeiro",
-                         DataInclusaoPontoTuristico = new DateTime()
+                         DataInclusaoPontoTuristico = new DateTime(2008, 10, 31, 17, 4, 32)
                     }
-                );
+                );;
         }
     }
 }
