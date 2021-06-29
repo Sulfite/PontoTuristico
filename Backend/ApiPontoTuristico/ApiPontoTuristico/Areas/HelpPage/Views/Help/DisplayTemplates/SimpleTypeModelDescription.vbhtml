@@ -1,3 +1,0 @@
-@Imports ApiPontoTuristico.Areas.HelpPage.ModelDescriptions
-@ModelType SimpleTypeModelDescription
-@Model.Documentation

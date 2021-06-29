@@ -1,14 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { Button } from '../../components/Button';
 
-// import './styles.css';
+import './styles.css';
 
 export function Lista() {
     return (
         <main className="container">
             
-            <img src="" alt="Logo" />
-            <Button title="Cadastrar um ponto Turístico" />
+            <div className="containerCabecalho">
+                <img src="" alt="Logo" />
+
+                <Link to="/cadastro">
+                    Cadastrar um ponto Turístico
+                </Link>
+            </div>
 
             <input type="text" placeholder="Digite um termo para buscar um ponto turístico" />
             <Button title="Buscar" />
@@ -20,7 +26,12 @@ export function Lista() {
 
             <Button title="Ver detalhes" />
 
-            
+
+            <p>Não encontrei nenhum resultado para sua busca :( </p>
+
+            <Button title="Anterior" />
+            <Button title="Avançar" />
+
         </main>
     )
 }

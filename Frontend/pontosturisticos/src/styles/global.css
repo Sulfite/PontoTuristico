@@ -1,5 +1,6 @@
 :root {
 
+
 }
 
 * {
@@ -8,6 +9,14 @@
     box-sizing: border-box;
 }
 
+html, body, #root {
+    height: 100vh;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+}
 
 @media(max-width: 1080px) {
     html {
