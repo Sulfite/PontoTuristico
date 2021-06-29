@@ -14,6 +14,7 @@ namespace ApiPontosTuristicos.Data
         public string ReferenciaPontoTuristico { get; set; }
         public string CidadePontoTuristico { get; set; }
         public string UfPontoTuristico { get; set; }
-        
+        public DateTime DataInclusaoPontoTuristico { get; set; }
+
     }
 }

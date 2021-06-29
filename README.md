@@ -7,6 +7,10 @@
 ```
 "DefaultConnection": "server= sua_configuracao_de_host ; port=sua_configuração_de_porta; database=pontoturisticodb; user=sua_configuração_de_usuario; password= sua_configuração_de_senha"
 ```
+- No console de gerenciamento de pacotes, execute o código a seguir:
+```
+Update-Database
+```
 
 # Front-end
 - Abra o terminal no local deste clone.

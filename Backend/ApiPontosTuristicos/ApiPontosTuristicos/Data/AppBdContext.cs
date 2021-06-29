@@ -30,7 +30,8 @@ namespace ApiPontosTuristicos.Data
                          EnderecoPontoTuristico = "Lapa",
                          ReferenciaPontoTuristico = "",
                          CidadePontoTuristico = "Rio de Janeiro",
-                         UfPontoTuristico = "Rio de Janeiro"
+                         UfPontoTuristico = "Rio de Janeiro",
+                         DataInclusaoPontoTuristico = new DateTime()
                     }
                 );
         }
