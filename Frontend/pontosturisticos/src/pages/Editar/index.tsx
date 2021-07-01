@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useParams } from 'react-router-dom';
 
 import { Button } from "../../components/Button";
 
@@ -7,29 +7,56 @@ import './styles.css';
 
 import LogoTipo from '../../assets/logo512.png';
 import { api } from "../../services/api";
+import { useQuery } from "../../hook/query";
 
-export function Cadastro() {
+interface PontoTuristico {
+    id: number,
+    nomePontoTuristico: string,
+    descricaoPontoTuristico: string,
+    enderecoPontoTuristico: string,
+    referenciaPontoTuristico: string,
+    cidadePontoTuristico: string,
+    ufPontoTuristico: string,
+    dataInclusaoPontoTuristico: Date;
+}
+
+const Editar: React.FC<PontoTuristico> = () => {
+
+    const query = useQuery();
+    console.log(query.get("id"));
+
+    const [ redirect, setRedirect] = useState(false);
 
     const [ nome, setNome] = useState('');
-    const [ cep, setCep] = useState('');
     const [ endereco, setEndereco] = useState('');
     const [ uf, setUf] = useState('');
     const [ cidade, setCidade] = useState('');
     const [ referencia, setReferencia] = useState('');
     const [ descricao, setDescricao] = useState('');
 
-    const [ redirect, setRedirect] = useState(false);
+    const [ pontoTuristico, setPontoTuristico] = useState([]);
 
-    function handlerCadastro(e: FormEvent) {
+    useEffect(() => {
+        api.get(`PontoTuristicos/${query.get("id")}`)
+            .then((response) =>  {
+                setNome(response.data.nomePontoTuristico);
+                setDescricao(response.data.descricaoPontoTuristico);
+                setEndereco(response.data.enderecoPontoTuristico);
+                setReferencia(response.data.referenciaPontoTuristico);
+                setCidade(response.data.cidadePontoTuristico);
+                setUf(response.data.ufPontoTuristico);
+            });
+    },[]);
+
+    function handlerEditar(e: FormEvent) {
         e.preventDefault();
 
         console.log({
             nome ,endereco ,uf ,cidade ,referencia ,descricao
         });
 
-
         const pontoTuristico = {
-            
+            "id": Number(query.get("id")),
             "nomePontoTuristico": nome,
             "descricaoPontoTuristico": descricao,
             "enderecoPontoTuristico": endereco,
@@ -39,50 +66,30 @@ export function Cadastro() {
             "dataInclusaoPontoTuristico": new Date()
         }
 
-        api.post("PontoTuristicos", pontoTuristico )
+        api.put(`PontoTuristicos/${query.get("id")}`, pontoTuristico )
             .then(res => {
-                if (res.status === 201) {
+                if (res.status === 204) {
                     setRedirect(true);
                 }
             });
     }
 
-    useEffect(() => {
-        
-        fetch(`https://viacep.com.br/ws/${cep}/json/unicode/`)
-            .then(function(response) {
-                return console.log(response);
-            })
-        
-        // setDescricao(response.data.descricaoPontoTuristico);
-        // setEndereco(response.data.enderecoPontoTuristico);
-        // setReferencia(response.data.referenciaPontoTuristico);
-        // setCidade(response.data.cidadePontoTuristico);
-        // setUf(response.data.ufPontoTuristico);
-    }, [cep]);
-
     if (redirect) {
         return <Redirect to='/'/>;
     }
+
     return (
         <div className="containerCadastro">
+
             <img src={LogoTipo} alt="Logo" />
-            <form id="formCadastro" onSubmit={handlerCadastro}>
+            <form id="formCadastro" onSubmit={handlerEditar}>
                 <div>
                     <label>Nome: </label>
                     <input 
                         type="text"
-                        placeholder="Nome" 
+                        placeholder="Nome"
+                        value={nome}
                         onChange={(e) => { setNome(e.target.value) }}
-                    />
-                </div>
-
-                <div>
-                    <label>Cep: </label>
-                    <input 
-                        type="text" 
-                        placeholder="Cep" 
-                        onChange={(e) => { setCep(e.target.value) }} 
                     />
                 </div>
 
@@ -90,7 +97,8 @@ export function Cadastro() {
                     <label>Endereço: </label>
                     <input 
                         type="text" 
-                        placeholder="Endereço" 
+                        placeholder="Endereço"
+                        value={endereco}
                         onChange={(e) => { setEndereco(e.target.value) }} 
                     />
                 </div>
@@ -114,7 +122,8 @@ export function Cadastro() {
                         <label>Cidade: </label>
                         <input 
                             type="text" 
-                            placeholder="Cidade" 
+                            placeholder="Cidade"
+                            value={cidade}
                             onChange={(e) => { setCidade(e.target.value) }}
                         />
                     </div>
@@ -123,14 +132,18 @@ export function Cadastro() {
                 <div>
                     <label>Referência:</label>
                     <input 
-                        type="text" 
+                        type="text"
+                        value={referencia}
                         onChange={(e) => { setReferencia(e.target.value) }}
                     />
                 </div>
 
                 <div>
                     <label>Descrição:</label>
-                    <textarea onChange={(e) => { setDescricao(e.target.value) }} />
+                    <textarea 
+                        value={descricao}
+                        onChange={(e) => { setDescricao(e.target.value) }} 
+                    />
                 </div>
 
                 <div>
@@ -140,9 +153,11 @@ export function Cadastro() {
                         </span>
                     </Link>
                     
-                    <Button type="submit" title="Cadastrar" />
+                    <Button type="submit" title="Editar" />
                 </div>
             </form>
         </div>
     );
 }
+
+export default Editar;

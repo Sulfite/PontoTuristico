@@ -16,12 +16,88 @@
 
     width: 100%;
 
-    margin-top: 4rem;
+    margin: 4rem auto;
 }
-/* 
-.containerCabecalho button {
-    
-} */
 
+.containerCabecalho img {
+    width: 5rem;
+    height: 5rem;
+}
 
+.containerCabecalho span {
+    font-size: 1.5rem;
+    transition: border-bottom 0.2s;
+}
 
+.containerCabecalho span:hover {
+    border-bottom: 2px solid var(--green-900);
+}
+
+.containerPesquisa,
+.containerPesquisa {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem auto;
+}
+
+.containerPesquisa input {
+    width: 80%;
+
+    border-radius: 5rem;
+    border: 1px solid #000000;
+
+    font-size: 2rem;
+    padding: 0.5rem 0 0.5rem 0.5rem;
+
+}
+
+.containerPesquisa input:focus {
+    outline: none;
+}
+
+.containerLista {
+    width: 100%;
+    display: inline-block;
+    margin-top: 2rem;
+}
+
+.containerLista div:first-child,
+.containerLista div + div {
+    margin: 1rem auto 3rem;
+}
+
+.containerLista div h1 {
+    font-size: 2rem;
+    line-height: 2rem;
+    font-weight: bold;
+}
+
+.containerLista div p {
+    font-size: 1rem;
+    line-height: 3rem;
+}
+
+.container .containerLista div span {
+    font-size: 1rem;
+    background: var(--green-900);
+
+    padding: 0.5rem;
+    border-radius: 1rem;
+
+    transition: filter 2s;
+}
+
+.container .containerLista div span:hover {
+    filter: brightness(50%);
+}
+
+.container .containerbutton {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem auto;
+}
