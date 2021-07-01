@@ -1,4 +1,4 @@
-# Processo Newcon
+# Ponto Turístico
 
 # Back-end
 - O banco usado é MySql
