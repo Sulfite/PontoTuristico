@@ -21,7 +21,7 @@ cd frontend/pontosturisticos
 - Execute o comando a seguir para intalar as dependencias do projeto
 ```
 npm install
-
+```
 - Trocar no arquivo services/api.ts a url da api
 ```
 baseURL: "url_da_api",
