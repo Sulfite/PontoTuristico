@@ -25,13 +25,13 @@ namespace ApiPontosTuristicos.Data
                     new PontoTuristico
                     {
                          Id =  1, 
-                         NomePontoTuristico = "Cristo Reentor",
-                         DescricaoPontoTuristico = "Grande",
-                         EnderecoPontoTuristico = "Lapa",
+                         NomePontoTuristico = "Cristo Redentor",
+                         DescricaoPontoTuristico = "Cristo Redentor é uma estátua art déco que retrata Jesus Cristo, localizada no topo do Corcovado.",
+                         EnderecoPontoTuristico = "Parque Nacional da Tijuca",
                          ReferenciaPontoTuristico = "",
                          CidadePontoTuristico = "Rio de Janeiro",
-                         UfPontoTuristico = "Rio de Janeiro",
-                         DataInclusaoPontoTuristico = new DateTime(2008, 10, 31, 17, 4, 32)
+                         UfPontoTuristico = "RJ",
+                         DataInclusaoPontoTuristico = new DateTime(2021, 06, 28, 17, 4, 32)
                     }
                 );;
         }
