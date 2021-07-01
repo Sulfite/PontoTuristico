@@ -26,8 +26,6 @@ npm install
 ```
 baseURL: "url_da_api",
 ```
-
-```
 - Efetue o comando a baixo para executar a aplicação:
 ```
 npm start
