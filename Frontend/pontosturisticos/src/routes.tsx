@@ -6,14 +6,17 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import { Lista } from './pages/Lista/index';
 import { Cadastro } from './pages/Cadastro/index';
+import Editar from "./pages/Editar/index";
+
+
 
 function Routes() {
     return (
         <BrowserRouter>
             <Route path="/" exact component={Lista} />
             <Route path="/cadastro" component={Cadastro} />
-            {/* <Route path="/study" component={TeacherList} />
-            <Route path="/give-classes" component={TeacherForm} /> */}
+            <Route path="/editar" component={Editar} />
+
         </BrowserRouter>
     )
 }

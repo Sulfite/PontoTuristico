@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiPontosTuristicos.Data;
+using Microsoft.AspNetCore.Cors;
 
 namespace ApiPontosTuristicos.Controllers
 {
+    [EnableCors("TCAPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class PontoTuristicosController : ControllerBase
@@ -39,6 +41,22 @@ namespace ApiPontosTuristicos.Controllers
             }
 
             return pontoTuristico;
+        }
+
+        // GET: api/PontoTuristicos/nome/{pesquisa}
+        [HttpGet("nome/{pesquisa}")]
+        public async Task<ActionResult<IEnumerable<PontoTuristico>>> GetNomePontoTuristico(string pesquisa)
+        {
+
+            var ponto = from p in _context.PontoTuristicos
+                                                     select p;
+
+            if (!String.IsNullOrEmpty(pesquisa))
+            {
+                ponto = ponto.Where(s => s.NomePontoTuristico.Contains(pesquisa));
+            }
+
+            return await ponto.ToListAsync();
         }
 
         // PUT: api/PontoTuristicos/5

@@ -39,6 +39,13 @@ namespace ApiPontosTuristicos
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiPontosTuristicos", Version = "v1" });
             });
+
+            services.AddCors(t => t.AddPolicy("TCAPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,8 +62,8 @@ namespace ApiPontosTuristicos
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
+            // app.UseAuthorization();
+            app.UseCors("TCAPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
