@@ -3,14 +3,16 @@ using System;
 using ApiPontosTuristicos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ApiPontosTuristicos.Migrations
 {
     [DbContext(typeof(AppBdContext))]
-    partial class AppBdContextModelSnapshot : ModelSnapshot
+    [Migration("20210702022109_cep2")]
+    partial class cep2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

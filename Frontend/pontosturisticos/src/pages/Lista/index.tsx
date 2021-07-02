@@ -33,11 +33,16 @@ export function Lista({ pontosTuristicos }: Lista) {
 
     async function handlerPesquisa() {
 
-        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}`)
-            .then(response => response.data);
+        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/5/1`)
+            .then(response => response);
 
-        setPesquisaResultado(response);
-
+            
+        // console.log(response.headers);
+        // console.log(response.headers['x-next-pagina'])
+        // console.log(response.headers['x-pages-totalpages'])
+        // console.log(response.headers['x-pagina-atual'])
+        
+        setPesquisaResultado(response.data);
     }
 
     return (

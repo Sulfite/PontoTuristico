@@ -3,14 +3,16 @@ using System;
 using ApiPontosTuristicos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ApiPontosTuristicos.Migrations
 {
     [DbContext(typeof(AppBdContext))]
-    partial class AppBdContextModelSnapshot : ModelSnapshot
+    [Migration("20210702015346_cep")]
+    partial class cep
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,8 +25,8 @@ namespace ApiPontosTuristicos.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("CepPontoTuristico")
-                        .HasColumnType("longtext");
+                    b.Property<int>("CepPontoTuristico")
+                        .HasColumnType("int");
 
                     b.Property<string>("CidadePontoTuristico")
                         .HasColumnType("longtext");
@@ -56,7 +58,7 @@ namespace ApiPontosTuristicos.Migrations
                         new
                         {
                             Id = 1,
-                            CepPontoTuristico = "23575460",
+                            CepPontoTuristico = 23575460,
                             CidadePontoTuristico = "Rio de Janeiro",
                             DataInclusaoPontoTuristico = new DateTime(2021, 6, 28, 17, 4, 32, 0, DateTimeKind.Unspecified),
                             DescricaoPontoTuristico = "Cristo Redentor é uma estátua art déco que retrata Jesus Cristo, localizada no topo do Corcovado.",

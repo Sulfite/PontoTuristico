@@ -24,16 +24,17 @@ namespace ApiPontosTuristicos.Data
                 .HasData(
                     new PontoTuristico
                     {
-                         Id =  1, 
-                         NomePontoTuristico = "Cristo Redentor",
-                         DescricaoPontoTuristico = "Cristo Redentor é uma estátua art déco que retrata Jesus Cristo, localizada no topo do Corcovado.",
+                        Id = 1,
+                        NomePontoTuristico = "Cristo Redentor",
+                        DescricaoPontoTuristico = "Cristo Redentor é uma estátua art déco que retrata Jesus Cristo, localizada no topo do Corcovado.",
+                        CepPontoTuristico = "23575460",
                          EnderecoPontoTuristico = "Parque Nacional da Tijuca",
-                         ReferenciaPontoTuristico = "",
-                         CidadePontoTuristico = "Rio de Janeiro",
-                         UfPontoTuristico = "RJ",
-                         DataInclusaoPontoTuristico = new DateTime(2021, 06, 28, 17, 4, 32)
+                        ReferenciaPontoTuristico = "",
+                        CidadePontoTuristico = "Rio de Janeiro",
+                        UfPontoTuristico = "RJ",
+                        DataInclusaoPontoTuristico = new DateTime(2021, 06, 28, 17, 4, 32)
                     }
-                );;
+                );
         }
     }
 }

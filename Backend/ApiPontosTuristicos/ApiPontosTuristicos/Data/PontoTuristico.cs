@@ -10,6 +10,7 @@ namespace ApiPontosTuristicos.Data
         public int Id { get; set; }
         public string NomePontoTuristico { get; set; }
         public string DescricaoPontoTuristico { get; set; }
+        public string CepPontoTuristico { get; set; }
         public string EnderecoPontoTuristico { get; set; }
         public string ReferenciaPontoTuristico { get; set; }
         public string CidadePontoTuristico { get; set; }

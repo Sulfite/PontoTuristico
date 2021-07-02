@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiPontosTuristicos.Data;
 using Microsoft.AspNetCore.Cors;
+using Newtonsoft.Json.Linq;
 
 namespace ApiPontosTuristicos.Controllers
 {
@@ -60,14 +61,19 @@ namespace ApiPontosTuristicos.Controllers
                 nextPagina = pagina + 1;
             }
 
-            HttpContext.Response.Headers.Add("X-Pages-TotalPages", totalPaginas.ToString());
-            HttpContext.Response.Headers.Add("X-Pagina-Atual", pagina.ToString());
-            HttpContext.Response.Headers.Add("X-Next-Pagina", nextPagina.ToString());
-
             var ponto = _context.PontoTuristicos.Where(s => s.NomePontoTuristico.Contains(pesquisa))
                              .OrderBy(s => s.DataInclusaoPontoTuristico)
                              .Skip(quantidadeRegistro * (pagina - 1))
                              .Take(quantidadeRegistro);
+
+            HttpContext.Response.Headers.Add("X-Pages-TotalPages", totalPaginas.ToString());
+            HttpContext.Response.Headers.Add("X-Pagina-Atual", pagina.ToString());
+            HttpContext.Response.Headers.Add("X-Next-Pagina", nextPagina.ToString());
+
+            if (ponto == null)
+            {
+                return NotFound();
+            }
 
             return await ponto.ToListAsync();
         }

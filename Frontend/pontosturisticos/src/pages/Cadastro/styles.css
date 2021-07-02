@@ -95,6 +95,7 @@
     outline: none;
 }
 
+.containerCadastro form div input + button,
 .containerCadastro form div select + label {
     margin-left: 1rem;
 }
