@@ -28,6 +28,7 @@ const Editar: React.FC<PontoTuristico> = () => {
     const [ redirect, setRedirect] = useState(false);
 
     const [ nome, setNome] = useState('');
+    const [cep, setCep] = useState('');
     const [ endereco, setEndereco] = useState('');
     const [ uf, setUf] = useState('');
     const [ cidade, setCidade] = useState('');
@@ -39,8 +40,11 @@ const Editar: React.FC<PontoTuristico> = () => {
     useEffect(() => {
         api.get(`PontoTuristicos/${query.get("id")}`)
             .then((response) =>  {
+                console.log(response.data);
+                
                 setNome(response.data.nomePontoTuristico);
                 setDescricao(response.data.descricaoPontoTuristico);
+                setCep(response.data.cepPontoTuristico);
                 setEndereco(response.data.enderecoPontoTuristico);
                 setReferencia(response.data.referenciaPontoTuristico);
                 setCidade(response.data.cidadePontoTuristico);
@@ -59,6 +63,7 @@ const Editar: React.FC<PontoTuristico> = () => {
             "id": Number(query.get("id")),
             "nomePontoTuristico": nome,
             "descricaoPontoTuristico": descricao,
+            "cepPontoTuristico": cep,
             "enderecoPontoTuristico": endereco,
             "referenciaPontoTuristico": referencia,
             "cidadePontoTuristico": cidade,
@@ -72,6 +77,17 @@ const Editar: React.FC<PontoTuristico> = () => {
                     setRedirect(true);
                 }
             });
+    }
+
+    async function handleProcurar() {
+        const response = await  fetch(`https://viacep.com.br/ws/${cep}/json/unicode/`)
+        .then(response => response.json())
+        .then(data => data)
+
+        
+        setEndereco(response.logradouro);
+        setCidade(response.localidade);
+        setUf(response.uf);
     }
 
     if (redirect) {
@@ -91,6 +107,17 @@ const Editar: React.FC<PontoTuristico> = () => {
                         value={nome}
                         onChange={(e) => { setNome(e.target.value) }}
                     />
+                </div>
+
+                <div>
+                    <label>Cep: </label>
+                    <input
+                        type="text"
+                        placeholder="Cep"
+                        value={cep}
+                        onChange={(e) => { setCep(e.target.value) }}
+                    />
+                    <Button title="procurar" type="button" onClick={handleProcurar} />
                 </div>
 
                 <div>

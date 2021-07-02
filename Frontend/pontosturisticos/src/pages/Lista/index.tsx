@@ -27,17 +27,47 @@ export function Lista({ pontosTuristicos }: Lista) {
 
     const [inputPesquisa, setInputPesquisa] = useState('');
 
-    const [proximapagina, setproximapagina] = useState(null);
-    const [paginaAnterior, setPaginaAnterior] = useState(null);
+    const [proximaPagina, setProximaPagina] = useState(0);
+    const [paginaAnterior, setPaginaAnterior] = useState(0);
 
 
     async function handlerPesquisa() {
 
-        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}`)
-            .then(response => response.data);
+        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/5/1`)
+            .then(response => response);
 
-        setPesquisaResultado(response);
+        setProximaPagina(2); // console.log(response.headers['x-next-pagina'])
 
+        setPesquisaResultado(response.data);
+    }
+
+    async function handlerProxima() {
+
+        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/5/${proximaPagina}`)
+            .then(response => response);
+
+            
+        // console.log(response.headers);
+        setProximaPagina(2); // console.log(response.headers['x-next-pagina'])
+        // console.log(response.headers['x-pages-totalpages'])
+        
+        setPaginaAnterior(1) // console.log(response.headers['x-pagina-atual']) - console.log(response.headers['x-pages-totalpages'])
+        
+        setPesquisaResultado(response.data);
+    }
+
+    async function handlerAnterior() {
+
+        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/5/${paginaAnterior}`)
+            .then(response => response);
+
+            
+        // console.log(response.headers);
+        // console.log(response.headers['x-next-pagina'])
+        // console.log(response.headers['x-pages-totalpages'])
+        // console.log(response.headers['x-pagina-atual'])
+        
+        setPesquisaResultado(response.data);
     }
 
     return (
@@ -95,14 +125,14 @@ export function Lista({ pontosTuristicos }: Lista) {
 
                 {
                     paginaAnterior ? (
-                        <Button title="Anterior" />
+                        <Button title="Anterior" onClick={handlerAnterior} />
                     ) : ''
 
                 }
 
                 {
                     paginaAnterior ? (
-                        <Button title="Avançar" />
+                        <Button title="Avançar" onClick={handlerProxima} />
                     ) : ''
                 }
 

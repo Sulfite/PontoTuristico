@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiPontosTuristicos.Data;
 using Microsoft.AspNetCore.Cors;
+using Newtonsoft.Json.Linq;
 
 namespace ApiPontosTuristicos.Controllers
 {
@@ -44,16 +45,34 @@ namespace ApiPontosTuristicos.Controllers
         }
 
         // GET: api/PontoTuristicos/nome/{pesquisa}
-        [HttpGet("nome/{pesquisa}")]
-        public async Task<ActionResult<IEnumerable<PontoTuristico>>> GetNomePontoTuristico(string pesquisa)
+        [HttpGet("nome/{pesquisa}/{quantidadeRegistro}/{pagina}")]
+        public async Task<ActionResult<IEnumerable<PontoTuristico>>> GetNomePontoTuristico(string pesquisa, int quantidadeRegistro, int pagina)
         {
+            var totalPaginas = (int)Math.Ceiling(_context.PontoTuristicos.Count() / Convert.ToDecimal(quantidadeRegistro));
 
-            var ponto = from p in _context.PontoTuristicos
-                                                     select p;
+            var nextPagina = pagina;
 
-            if (!String.IsNullOrEmpty(pesquisa))
+            if (pagina > totalPaginas)
             {
-                ponto = ponto.Where(s => s.NomePontoTuristico.Contains(pesquisa));
+                nextPagina = pagina;
+
+            } else
+            {
+                nextPagina = pagina + 1;
+            }
+
+            var ponto = _context.PontoTuristicos.Where(s => s.NomePontoTuristico.Contains(pesquisa))
+                             .OrderBy(s => s.DataInclusaoPontoTuristico)
+                             .Skip(quantidadeRegistro * (pagina - 1))
+                             .Take(quantidadeRegistro);
+
+            HttpContext.Response.Headers.Add("X-Pages-TotalPages", totalPaginas.ToString());
+            HttpContext.Response.Headers.Add("X-Pagina-Atual", pagina.ToString());
+            HttpContext.Response.Headers.Add("X-Next-Pagina", nextPagina.ToString());
+
+            if (ponto == null)
+            {
+                return NotFound();
             }
 
             return await ponto.ToListAsync();
