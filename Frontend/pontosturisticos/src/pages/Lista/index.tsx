@@ -30,10 +30,8 @@ export function Lista({ pontosTuristicos }: Lista) {
     const [quantidadeItensPagina, setQuantidadeItensPagina] = useState(5);
     const [proximaPagina, setProximaPagina] = useState(0);
     const [paginaAnterior, setPaginaAnterior] = useState(0);
-
-
+    
     async function handlerPesquisa() {
-
         const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/${quantidadeItensPagina}/1`)
             .then(response => response.data);
         
@@ -115,29 +113,31 @@ export function Lista({ pontosTuristicos }: Lista) {
 
             <div className="containerLista">
                 {
-                    pesquisaResultado.length ? (
-                        pesquisaResultado.map(itemPesquisa => (
-                            <div key={itemPesquisa.Id}>
-                                <h1>{itemPesquisa.NomePontoTuristico}</h1>
-                                <p>{itemPesquisa.DescricaoPontoTuristico}</p>
+                    inputPesquisa ? 
+                        pesquisaResultado.length ? (
+                            pesquisaResultado.map(itemPesquisa => (
+                                <div key={itemPesquisa.Id}>
+                                    <h1>{itemPesquisa.NomePontoTuristico}</h1>
+                                    <p>{itemPesquisa.DescricaoPontoTuristico}</p>
 
-                                <Link to={`/editar?id=${itemPesquisa.Id}`}>
-                                    <span>
-                                        Ver detalhes
-                                    </span>
-                                </Link>
-                            </div>
-                        ))
-                    ) : (
-                        <div className="naoEncontrei">
-                            <p>Não encontrei nenhum resultado para sua busca 😕 </p>
-                        </div>
-                    )
+                                    <Link to={`/editar?id=${itemPesquisa.Id}`}>
+                                        <span>
+                                            Ver detalhes
+                                        </span>
+                                    </Link>
+                                </div>
+                            ))
+                        ) :     
+                            (
+                                <div className="naoEncontrei">
+                                    <p>Não encontrei nenhum resultado para sua busca 😕 </p>
+                                </div>
+                            )
+                    : ''
                 }
             </div>
 
             <div className="containerbutton">
-
                 <div>
                     {
                         paginaAnterior ? (
@@ -154,7 +154,6 @@ export function Lista({ pontosTuristicos }: Lista) {
                     }
                 </div>
             </div>
-
         </main>
     )
 }
