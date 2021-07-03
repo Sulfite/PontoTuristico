@@ -2,6 +2,7 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { Link, Redirect } from 'react-router-dom';
 
 import { Button } from "../../components/Button";
+import { LinkComponent } from "../../components/LinkComponent"
 
 import './styles.css';
 
@@ -24,7 +25,6 @@ export function Cadastro() {
         e.preventDefault();
 
         const pontoTuristico = {
-
             "nomePontoTuristico": nome,
             "descricaoPontoTuristico": descricao,
             "cepPontoTuristico": cep,
@@ -150,15 +150,14 @@ export function Cadastro() {
 
                 <div>
                     <label>Descrição:</label>
-                    <textarea onChange={(e) => { setDescricao(e.target.value) }} />
+                    <textarea
+                        maxLength={100}
+                        onChange={(e) => { setDescricao(e.target.value) }} 
+                    />
                 </div>
 
                 <div>
-                    <Link to="/">
-                        <span>
-                            Voltar
-                        </span>
-                    </Link>
+                    <LinkComponent title="Voltar" caminho="/" />
 
                     <Button type="submit" title="Cadastrar" />
                 </div>
