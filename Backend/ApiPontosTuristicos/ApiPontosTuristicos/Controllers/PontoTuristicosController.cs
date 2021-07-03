@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using ApiPontosTuristicos.Data;
 using Microsoft.AspNetCore.Cors;
 using Newtonsoft.Json.Linq;
+using Canducci.Pagination;
+using Newtonsoft.Json;
 
 namespace ApiPontosTuristicos.Controllers
 {
@@ -44,11 +46,55 @@ namespace ApiPontosTuristicos.Controllers
             return pontoTuristico;
         }
 
-        // GET: api/PontoTuristicos/nome/{pesquisa}
         [HttpGet("nome/{pesquisa}/{quantidadeRegistro}/{pagina}")]
+        public IActionResult Get(string pesquisa, int quantidadeRegistro, int pagina)
+        {
+            
+            if (pagina <= 0) pagina = 1;
+
+            var totalPaginas = (int)Math.Ceiling(_context.PontoTuristicos.Where(s => s.NomePontoTuristico.Contains(pesquisa)).Count() / Convert.ToDecimal(quantidadeRegistro));
+
+            var nextPagina = pagina;
+
+            if (pagina > totalPaginas)
+            {
+                nextPagina = pagina;
+            }
+            else
+            {
+                nextPagina = pagina + 1;
+            }
+
+            var ponto = _context.PontoTuristicos.Where(s => s.NomePontoTuristico.Contains(pesquisa))
+                             .OrderBy(s => s.DataInclusaoPontoTuristico)
+                             .Skip(quantidadeRegistro * (pagina - 1))
+                             .Take(quantidadeRegistro);
+
+            Console.WriteLine(ponto);
+
+
+            if (ponto == null)
+            {
+                return NotFound();
+            }
+
+            var j = JsonConvert.SerializeObject(new
+            {
+                ponto,
+                TotalPaginas = totalPaginas,
+                NextPagina = nextPagina,
+                PaginaAtual = pagina
+            });
+
+            return Ok(j);
+        }
+
+
+        // GET: api/PontoTuristicos/nome/{pesquisa}
+        [HttpGet("nome2/{pesquisa}/{quantidadeRegistro}/{pagina}")]
         public async Task<ActionResult<IEnumerable<PontoTuristico>>> GetNomePontoTuristico(string pesquisa, int quantidadeRegistro, int pagina)
         {
-            var totalPaginas = (int)Math.Ceiling(_context.PontoTuristicos.Count() / Convert.ToDecimal(quantidadeRegistro));
+            var totalPaginas = (int)Math.Ceiling(_context.PontoTuristicos.Where(s => s.NomePontoTuristico.Contains(pesquisa)).Count() / Convert.ToDecimal(quantidadeRegistro));
 
             var nextPagina = pagina;
 
