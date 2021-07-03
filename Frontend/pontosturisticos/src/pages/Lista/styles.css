@@ -93,11 +93,19 @@
     filter: brightness(50%);
 }
 
+.container .containerLista div.naoEncontrei > p {
+    width: 100%;
+    text-align: center;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    margin-top: 5rem;
+}
+
 .container .containerbutton {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 1rem auto;
+    margin: 3rem auto;
 }

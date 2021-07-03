@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "Canducci.Pagination/2.1.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/Canducci.Pagination.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Canducci.Pagination.dll": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -2198,6 +2207,23 @@
     }
   },
   "libraries": {
+    "Canducci.Pagination/2.1.2": {
+      "sha512": "hmwobJtDyUUMYEGDXjo0asiMw/l/vmv1AJHJr4Xdn8M1sdDR2I0T4HnnluIHI4fifM+hCfSemMy80SpQ3ddP4g==",
+      "type": "package",
+      "path": "canducci.pagination/2.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "canducci.pagination.2.1.2.nupkg.sha512",
+        "canducci.pagination.nuspec",
+        "ico.png",
+        "lib/net451/Canducci.Pagination.dll",
+        "lib/net461/Canducci.Pagination.dll",
+        "lib/netstandard1.6/Canducci.Pagination.dll",
+        "lib/netstandard2.0/Canducci.Pagination.dll",
+        "lib/netstandard2.1/Canducci.Pagination.dll"
+      ]
+    },
     "Humanizer.Core/2.8.26": {
       "sha512": "OiKusGL20vby4uDEswj2IgkdchC1yQ6rwbIkZDVBPIR6al2b7n3pC91elBul9q33KaBgRKhbZH3+2Ur4fnWx2A==",
       "type": "package",
@@ -7594,6 +7620,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Canducci.Pagination >= 2.1.2",
       "Microsoft.AspNetCore.Cors >= 2.2.0",
       "Microsoft.EntityFrameworkCore >= 5.0.7",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.7",
@@ -7644,6 +7671,10 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
+          "Canducci.Pagination": {
+            "target": "Package",
+            "version": "[2.1.2, )"
+          },
           "Microsoft.AspNetCore.Cors": {
             "target": "Package",
             "version": "[2.2.0, )"

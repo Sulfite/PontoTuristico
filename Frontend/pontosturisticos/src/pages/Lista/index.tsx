@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { Button } from '../../components/Button';
 
@@ -8,14 +8,14 @@ import LogoTipo from '../../assets/logo512.png';
 import { api } from '../../services/api';
 
 interface PontoTuristico {
-    id: number,
-    nomePontoTuristico: string,
-    descricaoPontoTuristico: string,
-    enderecoPontoTuristico: string,
-    referenciaPontoTuristico: string,
-    cidadePontoTuristico: string,
-    ufPontoTuristico: string,
-    dataInclusaoPontoTuristico: Date;
+    Id: number,
+    NomePontoTuristico: string,
+    DescricaoPontoTuristico: string,
+    EnderecoPontoTuristico: string,
+    ReferenciaPontoTuristico: string,
+    CidadePontoTuristico: string,
+    UfPontoTuristico: string,
+    DataInclusaoPontoTuristico: Date;
 }
 
 interface Lista {
@@ -27,47 +27,53 @@ export function Lista({ pontosTuristicos }: Lista) {
 
     const [inputPesquisa, setInputPesquisa] = useState('');
 
+    const [quantidadeItensPagina, setQuantidadeItensPagina] = useState(5);
     const [proximaPagina, setProximaPagina] = useState(0);
     const [paginaAnterior, setPaginaAnterior] = useState(0);
-
-
+    
     async function handlerPesquisa() {
-
-        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/5/1`)
-            .then(response => response);
-
-        setProximaPagina(2); // console.log(response.headers['x-next-pagina'])
-
-        setPesquisaResultado(response.data);
+        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/${quantidadeItensPagina}/1`)
+            .then(response => response.data);
+        
+        if (response.NextPagina > response.TotalPaginas) {
+            setProximaPagina(0);
+        } else {
+            setProximaPagina(response.NextPagina); 
+        }
+        setPesquisaResultado(response.ponto);
     }
 
     async function handlerProxima() {
-
-        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/5/${proximaPagina}`)
-            .then(response => response);
-
-            
-        // console.log(response.headers);
-        setProximaPagina(2); // console.log(response.headers['x-next-pagina'])
-        // console.log(response.headers['x-pages-totalpages'])
+        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/${quantidadeItensPagina}/${proximaPagina}`)
+            .then(response => response.data);
         
-        setPaginaAnterior(1) // console.log(response.headers['x-pagina-atual']) - console.log(response.headers['x-pages-totalpages'])
-        
-        setPesquisaResultado(response.data);
+        if (response.NextPagina > response.TotalPaginas) {
+            setProximaPagina(0);
+        } else {
+            setProximaPagina(response.NextPagina); 
+        }
+
+        setPaginaAnterior(response.PaginaAtual - 1); // console.log(response.headers['x-pagina-atual']) - console.log(response.headers['x-pages-totalpages'])
+        setPesquisaResultado(response.ponto);
     }
 
     async function handlerAnterior() {
 
-        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/5/${paginaAnterior}`)
-            .then(response => response);
-
-            
-        // console.log(response.headers);
-        // console.log(response.headers['x-next-pagina'])
-        // console.log(response.headers['x-pages-totalpages'])
-        // console.log(response.headers['x-pagina-atual'])
+        const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/${quantidadeItensPagina}/${paginaAnterior}`)
+            .then(response => response.data);
         
-        setPesquisaResultado(response.data);
+        if (response.NextPagina > response.TotalPaginas) {
+            setProximaPagina(0);
+        } else {
+            setProximaPagina(response.NextPagina); 
+        }
+
+        if (response.PaginaAtual <= 1) {
+            setPaginaAnterior(0);
+        } else {
+            setPaginaAnterior(response.PaginaAtual - 1);
+        }
+        setPesquisaResultado(response.ponto);
     }
 
     return (
@@ -90,54 +96,64 @@ export function Lista({ pontosTuristicos }: Lista) {
                     placeholder="Digite um termo para buscar um ponto turístico"
                     onChange={(e) => { setInputPesquisa(e.target.value) }}
                 />
+
+                <select 
+                    name="" 
+                    id="ItemPagina"
+                    value={quantidadeItensPagina}
+                    onChange={(e) => { setQuantidadeItensPagina(Number(e.target.value)) }}
+                >
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
                 <Button title="Buscar" onClick={handlerPesquisa} />
             </div>
 
             <div className="containerLista">
-
                 {
-                    pesquisaResultado.length ? (
+                    inputPesquisa ? 
+                        pesquisaResultado.length ? (
+                            pesquisaResultado.map(itemPesquisa => (
+                                <div key={itemPesquisa.Id}>
+                                    <h1>{itemPesquisa.NomePontoTuristico}</h1>
+                                    <p>{itemPesquisa.DescricaoPontoTuristico}</p>
 
-                        pesquisaResultado.map(itemPesquisa => (
-                            <div key={itemPesquisa.id}>
-                                <h1>{itemPesquisa.nomePontoTuristico}</h1>
-                                <p>{itemPesquisa.descricaoPontoTuristico}</p>
-
-                                <Link to={`/editar?id=${itemPesquisa.id}`}>
-                                    <span>
-                                        Ver detalhes
-                                    </span>
-                                </Link>
-                            </div>
-                        ))
-
-                    ) : (
-                        <p>Não encontrei nenhum resultado para sua busca :( </p>
-                    )
+                                    <Link to={`/editar?id=${itemPesquisa.Id}`}>
+                                        <span>
+                                            Ver detalhes
+                                        </span>
+                                    </Link>
+                                </div>
+                            ))
+                        ) :     
+                            (
+                                <div className="naoEncontrei">
+                                    <p>Não encontrei nenhum resultado para sua busca 😕 </p>
+                                </div>
+                            )
+                    : ''
                 }
-
             </div>
-
-
-
 
             <div className="containerbutton">
+                <div>
+                    {
+                        paginaAnterior ? (
+                            <Button title="Anterior" onClick={handlerAnterior} />
+                        ) : ''    
+                    }
+                </div>
 
-                {
-                    paginaAnterior ? (
-                        <Button title="Anterior" onClick={handlerAnterior} />
-                    ) : ''
-
-                }
-
-                {
-                    paginaAnterior ? (
-                        <Button title="Avançar" onClick={handlerProxima} />
-                    ) : ''
-                }
-
+                <div>
+                    {
+                        proximaPagina ? (
+                            <Button title="Avançar" onClick={handlerProxima} />
+                        ) : ''
+                    }
+                </div>
             </div>
-
         </main>
     )
 }

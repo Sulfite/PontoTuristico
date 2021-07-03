@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5/0QKT55a1QSuTh5NzpCOg+GpveJjM+Dn0uge4UK6OmHGEcdaQNmDITo70ujA5gTnuR5anSmodDT+iG3dyy4RA==",
+  "dgSpecHash": "6F+UU7SYiOoLZ2DHn5yweEDtTlPutSpu8z3mPZ+0fUdElDj4RjqBuAZDw4ZB2qZHoF7FxJIh/LModPJt/FpJrg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Vinicius\\Desktop\\ProcessoSeletivoNewcon\\processoNewcon\\Backend\\ApiPontosTuristicos\\ApiPontosTuristicos\\ApiPontosTuristicos.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Vinicius\\.nuget\\packages\\canducci.pagination\\2.1.2\\canducci.pagination.2.1.2.nupkg.sha512",
     "C:\\Users\\Vinicius\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Vinicius\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
     "C:\\Users\\Vinicius\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
