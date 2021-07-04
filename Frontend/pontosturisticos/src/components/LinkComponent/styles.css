@@ -1,0 +1,7 @@
+span {
+    font-size: 1.5rem;
+}
+
+span:hover {
+    outline: 0;
+}

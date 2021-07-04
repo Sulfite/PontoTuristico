@@ -4,7 +4,8 @@ import { Link, Redirect } from 'react-router-dom';
 import { Button } from "../../components/Button";
 import { LinkComponent } from "../../components/LinkComponent"
 
-import './styles.css';
+// import './styles.css';
+import '../../styles/stylesCadastroEdicao.css';
 
 import LogoTipo from '../../assets/logo512.png';
 import { api } from "../../services/api";
@@ -65,7 +66,6 @@ export function Cadastro() {
                     <label>Nome: </label>
                     <input
                         type="text"
-                        placeholder="Nome"
                         onChange={(e) => { setNome(e.target.value) }}
                     />
                 </div>
@@ -74,17 +74,15 @@ export function Cadastro() {
                     <label>Cep: </label>
                     <input
                         type="text"
-                        placeholder="Cep"
                         onChange={(e) => { setCep(e.target.value) }}
                     />
-                    <Button title="procurar" type="button" onClick={handleProcurar} />
+                    <Button title="Procurar" type="button" onClick={handleProcurar} />
                 </div>
 
                 <div>
                     <label>Endereço: </label>
                     <input
                         type="text"
-                        placeholder="Endereço"
                         value={endereco}
                         onChange={(e) => { setEndereco(e.target.value) }}
                     />
@@ -100,7 +98,7 @@ export function Cadastro() {
                             value={uf}
                             onChange={(e) => { setUf(e.target.value) }}
                         >
-                            <option value="" disabled hidden>Selecione uma opção</option>
+                            <option value="" disabled hidden>Selecione</option>
                             <option key="AC" value="AC">AC</option>
                             <option key="AL" value="AL">AL</option>
                             <option key="AP" value="AP">AP</option>
@@ -133,7 +131,6 @@ export function Cadastro() {
                         <label>Cidade: </label>
                         <input
                             type="text"
-                            placeholder="Cidade"
                             value={cidade}
                             onChange={(e) => { setCidade(e.target.value) }}
                         />

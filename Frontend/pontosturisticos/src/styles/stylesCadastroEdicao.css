@@ -1,6 +1,6 @@
-.containerCadastro {
+/* .containerCadastro {
     max-width: 1128px;
-}
+} */
 
 .containerCadastro img {
     width: 5rem;
@@ -69,34 +69,41 @@
     margin: 0 1rem;
 }
 
+.containerCadastro form div.containerLocalizacao input {
+    width: 50%;
+}
+
 .containerCadastro form div select {
-    width: 40%;
+    width: 50%;
+    padding: 0.5rem 0 0.5rem 0.5rem;   
 
     border-radius: 5px;
-    border: 1px solid #000000;
+    border: 1px solid var(--black);
 
     font-size: 1rem;
     text-align: center;
-    padding: 0.5rem 0 0.5rem 0.5rem;   
+    text-align-last: center;
 }
 
-.containerCadastro form div select option {
+/* .containerCadastro form div select option {
     width: 40%;
 
     border-radius: 5px;
-    border: 1px solid #000000;
+    border: 1px solid var(--black);
 
     font-size: 1rem;
-    padding: 0.5rem 0 0.5rem 0.5rem;
-}
+    padding: 0.5rem 0 0.5rem 0.5rem;   
+} */
 
 
 .containerCadastro form div select:focus {
     outline: none;
 }
 
+.containerCadastro form div input + button,
 .containerCadastro form div select + label {
     margin-left: 1rem;
+    font-size: 1rem;
 }
 
 .containerCadastro form div:first-child {
@@ -108,8 +115,8 @@
 }
 
 .containerCadastro form div span {
-    font-size: 1rem;
     background: var(--green-900);
+    color: var(--white);
 
     padding: 0.5rem;
     border-radius: 1rem;

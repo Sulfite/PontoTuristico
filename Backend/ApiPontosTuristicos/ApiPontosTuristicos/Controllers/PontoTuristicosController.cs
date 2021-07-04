@@ -52,7 +52,7 @@ namespace ApiPontosTuristicos.Controllers
             
             if (pagina <= 0) pagina = 1;
 
-            var totalPaginas = (int)Math.Ceiling(_context.PontoTuristicos.Where(s => s.NomePontoTuristico.Contains(pesquisa)).Count() / Convert.ToDecimal(quantidadeRegistro));
+            var totalPaginas = (int)Math.Ceiling(_context.PontoTuristicos.Where(s => s.NomePontoTuristico.Contains(pesquisa) || s.DescricaoPontoTuristico.Contains(pesquisa) || s.EnderecoPontoTuristico.Contains(pesquisa)).Count() / Convert.ToDecimal(quantidadeRegistro));
 
             var nextPagina = pagina;
 
@@ -65,7 +65,10 @@ namespace ApiPontosTuristicos.Controllers
                 nextPagina = pagina + 1;
             }
 
-            var ponto = _context.PontoTuristicos.Where(s => s.NomePontoTuristico.Contains(pesquisa))
+
+
+            var ponto = _context.PontoTuristicos
+                             .Where(s => s.NomePontoTuristico.Contains(pesquisa) || s.DescricaoPontoTuristico.Contains(pesquisa) || s.EnderecoPontoTuristico.Contains(pesquisa))
                              .OrderBy(s => s.DataInclusaoPontoTuristico)
                              .Skip(quantidadeRegistro * (pagina - 1))
                              .Take(quantidadeRegistro);

@@ -3,7 +3,8 @@ import { Link, Redirect, useParams } from 'react-router-dom';
 
 import { Button } from "../../components/Button";
 
-import './styles.css';
+// import './styles.css';
+import '../../styles/stylesCadastroEdicao.css';
 
 import LogoTipo from '../../assets/logo512.png';
 import { api } from "../../services/api";

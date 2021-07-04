@@ -26,7 +26,8 @@
 
 .containerCabecalho span {
     font-size: 1.5rem;
-    transition: border-bottom 0.2s;
+    transition: border-bottom 2s;
+    outline: 0;
 }
 
 .containerCabecalho span:hover {
@@ -52,6 +53,10 @@
     padding: 0.5rem 0 0.5rem 0.5rem;
 }
 
+.containerPesquisa input::placeholder {
+    font-size: 1.5rem;
+}
+
 .containerPesquisa input:focus {
     outline: none;
 }
@@ -67,10 +72,7 @@
 
     font-size: 2rem;
     text-align: center;
-}
-
-.containerPesquisa select::content {
-    text-align: center;
+    text-align-last: center;
 }
 
 .containerPesquisa select:focus {
@@ -114,6 +116,7 @@
 .container .containerLista div span {
     font-size: 1rem;
     background: var(--green-900);
+    color: var(--white);
 
     padding: 0.5rem;
     border-radius: 1rem;
@@ -123,6 +126,10 @@
 
 .container .containerLista div span:hover {
     filter: brightness(50%);
+}
+
+.container .containerLista div button {
+    font-size: 2rem;
 }
 
 .container .containerLista div.naoEncontrei {

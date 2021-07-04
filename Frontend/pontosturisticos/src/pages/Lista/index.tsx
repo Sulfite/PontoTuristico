@@ -28,6 +28,8 @@ export function Lista({ pontosTuristicos }: Lista) {
 
     const [inputPesquisa, setInputPesquisa] = useState('');
 
+    const [pesquisaRealizada, setPesquisaRealizada] = useState(0);
+
     const [quantidadeItensPagina, setQuantidadeItensPagina] = useState(5);
     const [proximaPagina, setProximaPagina] = useState(0);
     const [paginaAnterior, setPaginaAnterior] = useState(0);
@@ -42,6 +44,8 @@ export function Lista({ pontosTuristicos }: Lista) {
             setProximaPagina(response.NextPagina);
         }
         setPesquisaResultado(response.ponto);
+
+        setPesquisaRealizada(1);
     }
 
     async function handlerProxima() {
@@ -83,7 +87,7 @@ export function Lista({ pontosTuristicos }: Lista) {
             <div className="containerCabecalho">
                 <img src={LogoTipo} alt="Logo" />
 
-                <LinkComponent title="Cadastrar um ponto Turístico" caminho="/cadastro" />
+                <LinkComponent title="Cadastrar um ponto turístico" caminho="/cadastro" />
             </div>
 
             <div className="containerPesquisa">
@@ -100,7 +104,6 @@ export function Lista({ pontosTuristicos }: Lista) {
                     value={quantidadeItensPagina}
                     onChange={(e) => { setQuantidadeItensPagina(Number(e.target.value)) }}
                 >
-                    <option value="3">3</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>
@@ -110,7 +113,7 @@ export function Lista({ pontosTuristicos }: Lista) {
 
             <div className="containerLista">
                 {
-
+                    pesquisaRealizada ? 
                     pesquisaResultado.length ? (
                         pesquisaResultado.map(itemPesquisa => (
                             <div key={itemPesquisa.Id}>
@@ -127,6 +130,7 @@ export function Lista({ pontosTuristicos }: Lista) {
                                 <p>Não encontrei nenhum resultado para sua busca 😕 </p>
                             </div>
                         )
+                    : ''
                 }
             </div>
 
