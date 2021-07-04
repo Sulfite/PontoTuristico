@@ -79,6 +79,10 @@
     outline: 0;
 }
 
+.containerPesquisa select option {
+    font-size: 1rem;
+}    
+
 .containerLista {
     width: 100%;
     display: inline-block;
