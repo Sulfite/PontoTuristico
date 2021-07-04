@@ -3,11 +3,13 @@ import { Link, Redirect, useParams } from 'react-router-dom';
 
 import { Button } from "../../components/Button";
 
-import './styles.css';
+// import './styles.css';
+import '../../styles/stylesCadastroEdicao.css';
 
 import LogoTipo from '../../assets/logo512.png';
 import { api } from "../../services/api";
 import { useQuery } from "../../hook/query";
+import { LinkComponent } from "../../components/LinkComponent";
 
 interface PontoTuristico {
     id: number,
@@ -174,11 +176,7 @@ const Editar: React.FC<PontoTuristico> = () => {
                 </div>
 
                 <div>
-                    <Link to="/">
-                        <span>
-                            Voltar
-                        </span>
-                    </Link>
+                    <LinkComponent title="Voltar" caminho="/" />
                     
                     <Button type="submit" title="Editar" />
                 </div>

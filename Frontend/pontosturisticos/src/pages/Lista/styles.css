@@ -26,7 +26,8 @@
 
 .containerCabecalho span {
     font-size: 1.5rem;
-    transition: border-bottom 0.2s;
+    transition: border-bottom 2s;
+    outline: 0;
 }
 
 .containerCabecalho span:hover {
@@ -45,17 +46,42 @@
 .containerPesquisa input {
     width: 80%;
 
-    border-radius: 5rem;
-    border: 1px solid #000000;
+    border-radius: 5px;
+    border: 1px solid var(--black);
 
     font-size: 2rem;
     padding: 0.5rem 0 0.5rem 0.5rem;
+}
 
+.containerPesquisa input::placeholder {
+    font-size: 1.5rem;
 }
 
 .containerPesquisa input:focus {
     outline: none;
 }
+
+.containerPesquisa select {
+    width: 20%;
+    
+    padding: 0.5rem 0 0.5rem 0.5rem;
+    margin: auto 1rem;
+
+    border-radius: 5px;
+    border: 1px solid var(--black);
+
+    font-size: 2rem;
+    text-align: center;
+    text-align-last: center;
+}
+
+.containerPesquisa select:focus {
+    outline: 0;
+}
+
+.containerPesquisa select option {
+    font-size: 1rem;
+}    
 
 .containerLista {
     width: 100%;
@@ -63,9 +89,20 @@
     margin-top: 2rem;
 }
 
+.containerLista div {
+    max-width: 720px;
+
+    padding: 1.5rem;
+    
+    border-radius: 5px;
+    border-bottom: 2px solid var(--black);
+
+    background: var(--white);
+}
+
 .containerLista div:first-child,
 .containerLista div + div {
-    margin: 1rem auto 3rem;
+    margin: 1rem auto 1.5rem;
 }
 
 .containerLista div h1 {
@@ -76,12 +113,14 @@
 
 .containerLista div p {
     font-size: 1rem;
-    line-height: 3rem;
+    line-height: 1.5rem;
+    margin: 1rem auto;
 }
 
 .container .containerLista div span {
     font-size: 1rem;
     background: var(--green-900);
+    color: var(--white);
 
     padding: 0.5rem;
     border-radius: 1rem;
@@ -93,12 +132,26 @@
     filter: brightness(50%);
 }
 
+.container .containerLista div button {
+    font-size: 2rem;
+}
+
+.container .containerLista div.naoEncontrei {
+    max-width: 720px;
+
+    padding: 1.5rem;
+    
+    border-radius: 5px;
+    border-bottom: none;
+
+    background: var(--white);
+}
+
 .container .containerLista div.naoEncontrei > p {
     width: 100%;
     text-align: center;
     font-size: 2.5rem;
     line-height: 2.5rem;
-    margin-top: 5rem;
 }
 
 .container .containerbutton {

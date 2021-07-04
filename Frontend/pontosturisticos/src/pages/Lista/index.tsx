@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+
 import { Button } from '../../components/Button';
+import { LinkComponent } from '../../components/LinkComponent'
 
 import './styles.css';
 
@@ -27,33 +28,37 @@ export function Lista({ pontosTuristicos }: Lista) {
 
     const [inputPesquisa, setInputPesquisa] = useState('');
 
+    const [pesquisaRealizada, setPesquisaRealizada] = useState(0);
+
     const [quantidadeItensPagina, setQuantidadeItensPagina] = useState(5);
     const [proximaPagina, setProximaPagina] = useState(0);
     const [paginaAnterior, setPaginaAnterior] = useState(0);
-    
+
     async function handlerPesquisa() {
         const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/${quantidadeItensPagina}/1`)
             .then(response => response.data);
-        
+
         if (response.NextPagina > response.TotalPaginas) {
             setProximaPagina(0);
         } else {
-            setProximaPagina(response.NextPagina); 
+            setProximaPagina(response.NextPagina);
         }
         setPesquisaResultado(response.ponto);
+
+        setPesquisaRealizada(1);
     }
 
     async function handlerProxima() {
         const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/${quantidadeItensPagina}/${proximaPagina}`)
             .then(response => response.data);
-        
+
         if (response.NextPagina > response.TotalPaginas) {
             setProximaPagina(0);
         } else {
-            setProximaPagina(response.NextPagina); 
+            setProximaPagina(response.NextPagina);
         }
 
-        setPaginaAnterior(response.PaginaAtual - 1); // console.log(response.headers['x-pagina-atual']) - console.log(response.headers['x-pages-totalpages'])
+        setPaginaAnterior(response.PaginaAtual - 1);
         setPesquisaResultado(response.ponto);
     }
 
@@ -61,11 +66,11 @@ export function Lista({ pontosTuristicos }: Lista) {
 
         const response = await api.get(`PontoTuristicos/nome/${inputPesquisa}/${quantidadeItensPagina}/${paginaAnterior}`)
             .then(response => response.data);
-        
+
         if (response.NextPagina > response.TotalPaginas) {
             setProximaPagina(0);
         } else {
-            setProximaPagina(response.NextPagina); 
+            setProximaPagina(response.NextPagina);
         }
 
         if (response.PaginaAtual <= 1) {
@@ -82,11 +87,7 @@ export function Lista({ pontosTuristicos }: Lista) {
             <div className="containerCabecalho">
                 <img src={LogoTipo} alt="Logo" />
 
-                <Link to="/cadastro">
-                    <span>
-                        Cadastrar um ponto Turístico
-                    </span>
-                </Link>
+                <LinkComponent title="Cadastrar um ponto turístico" caminho="/cadastro" />
             </div>
 
             <div className="containerPesquisa">
@@ -97,13 +98,13 @@ export function Lista({ pontosTuristicos }: Lista) {
                     onChange={(e) => { setInputPesquisa(e.target.value) }}
                 />
 
-                <select 
-                    name="" 
+                <select
+                    name=""
                     id="ItemPagina"
                     value={quantidadeItensPagina}
                     onChange={(e) => { setQuantidadeItensPagina(Number(e.target.value)) }}
                 >
-                    <option value="3">3</option>
+                    {/* <option value="3">3</option> */}
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>
@@ -113,26 +114,23 @@ export function Lista({ pontosTuristicos }: Lista) {
 
             <div className="containerLista">
                 {
-                    inputPesquisa ? 
-                        pesquisaResultado.length ? (
-                            pesquisaResultado.map(itemPesquisa => (
-                                <div key={itemPesquisa.Id}>
-                                    <h1>{itemPesquisa.NomePontoTuristico}</h1>
-                                    <p>{itemPesquisa.DescricaoPontoTuristico}</p>
+                    pesquisaRealizada ? 
+                    pesquisaResultado.length ? (
+                        pesquisaResultado.map(itemPesquisa => (
+                            <div key={itemPesquisa.Id}>
+                                <h1>{itemPesquisa.NomePontoTuristico}</h1>
+                                <p>{itemPesquisa.DescricaoPontoTuristico}</p>
 
-                                    <Link to={`/editar?id=${itemPesquisa.Id}`}>
-                                        <span>
-                                            Ver detalhes
-                                        </span>
-                                    </Link>
-                                </div>
-                            ))
-                        ) :     
-                            (
-                                <div className="naoEncontrei">
-                                    <p>Não encontrei nenhum resultado para sua busca 😕 </p>
-                                </div>
-                            )
+                                <LinkComponent title="Ver detalhes" caminho={`/editar?id=${itemPesquisa.Id}`} />
+
+                            </div>
+                        ))
+                    ) :
+                        (
+                            <div className="naoEncontrei">
+                                <p>Não encontrei nenhum resultado para sua busca 😕 </p>
+                            </div>
+                        )
                     : ''
                 }
             </div>
@@ -142,7 +140,7 @@ export function Lista({ pontosTuristicos }: Lista) {
                     {
                         paginaAnterior ? (
                             <Button title="Anterior" onClick={handlerAnterior} />
-                        ) : ''    
+                        ) : ''
                     }
                 </div>
 

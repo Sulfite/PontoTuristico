@@ -1,6 +1,8 @@
 .containerButton {
-    font-size: 1rem;
+    font-size: 1.5rem;
     background: var(--green-900);
+
+    color: var(--white);
 
     padding: 0.5rem;
     border-radius: 1rem;
